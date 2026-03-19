@@ -1,22 +1,14 @@
-from app.conquerors.conquerors import conquerors
-from app.conquerors.lancelot import lancelot_stats
-from app.conquerors.mordred import mordred_stats
-from app.conquerors.arthur import arthur_stats
-from app.conquerors.red_knight import red_knight_stats
-from app.battles.first_battle import first_battle
-from app.battles.second_battle import second_battle
+from app.battles.fight import fight
+from app.conquerors.conquerors import calculate_stats
 
 
 def battle(stats: dict) -> dict:
-    lancelot = lancelot_stats(stats)
-    mordred = mordred_stats(stats)
-    arthur = arthur_stats(stats)
-    red_knight = red_knight_stats(stats)
-
-    result = first_battle(lancelot, mordred)
-    result.update(second_battle(arthur, red_knight))
-
+    result = fight(
+        calculate_stats(stats["lancelot"]),
+        calculate_stats(stats["mordred"])
+    )
+    result.update(
+        fight(calculate_stats(stats["arthur"]),
+              calculate_stats(stats["red_knight"]))
+    )
     return result
-
-
-print(battle(conquerors))

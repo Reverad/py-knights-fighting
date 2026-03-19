@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 conquerors = {
     "lancelot": {
         "name": "Lancelot",
@@ -87,6 +89,7 @@ conquerors = {
 
 
 def calculate_stats(knight: dict) -> dict:
+    knight = deepcopy(knight)
     knight["protection"] = sum(a["protection"] for a in knight["armour"])
     knight["power"] += knight["weapon"]["power"]
     if knight["potion"]:
