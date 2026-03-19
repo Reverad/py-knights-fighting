@@ -3,12 +3,11 @@ from app.conquerors.conquerors import calculate_stats
 
 
 def battle(stats: dict) -> dict:
-    result = fight(
-        calculate_stats(stats["lancelot"]),
-        calculate_stats(stats["mordred"])
-    )
-    result.update(
-        fight(calculate_stats(stats["arthur"]),
-              calculate_stats(stats["red_knight"]))
-    )
-    return result
+    battles = [("lancelot", "mordred"), ("arthur", "red_knight")]
+
+    return {
+        k: v
+        for knight1, knight2 in battles
+        for k, v in fight(calculate_stats(stats[knight1]),
+                          calculate_stats(stats[knight2])).items()
+    }
